@@ -179,6 +179,7 @@ function page(s, prev, next, i){
 <meta property="og:description" content="${attr(s.tagline)}">
 <meta property="og:type" content="article">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script src="/gate.js"></script>
 ${FONTS}
 <link rel="stylesheet" href="/systems.css">
 </head>

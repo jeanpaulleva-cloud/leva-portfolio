@@ -10,6 +10,7 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script src="/gate.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400;1,6..72,500&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -143,6 +144,17 @@ body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;o
 .dwr-sec p{font-size:15.5px;line-height:1.72;color:var(--text-dim);font-weight:300}
 body.dwr-locked{overflow:hidden}
 @media(max-width:560px){.dwr-panel{width:100vw}.dwr-head{padding:26px 22px 20px}.dwr-body{padding:24px 22px 44px}}
+
+/* ── Offer / work-with-me ── */
+.offer-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px;text-align:left}
+.offer{background:rgba(255,255,255,0.025);border:1px solid var(--line);border-radius:16px;padding:28px 26px}
+.offer-n{font-family:var(--font-mono);font-size:11px;letter-spacing:2px;color:var(--accent);margin-bottom:14px}
+.offer h3{font-family:var(--font-serif);font-weight:400;font-size:23px;letter-spacing:-0.01em;margin-bottom:10px;color:var(--text)}
+.offer p{font-size:14.5px;line-height:1.6;color:var(--text-dim);font-weight:300}
+.offer-trust{margin-top:30px;font-size:15.5px;line-height:1.65;color:var(--text-dim);font-weight:300;max-width:700px}
+.offer-trust strong{color:var(--accent);font-weight:500}
+.close-cta{margin-top:44px}
+@media(max-width:700px){.offer-grid{grid-template-columns:1fr}}
 
 /* ── Close / CTA ── */
 .close{text-align:center;align-items:center}
@@ -302,13 +314,22 @@ body.dwr-locked{overflow:hidden}
   </div>
 </section>
 
-<!-- ════════ ACT VII — CLOSE ════════ -->
-<section class="act close">
+<!-- ════════ ACT VII — WORK WITH ME ════════ -->
+<section class="act">
   <div class="eyebrow r">Work With Me</div>
-  <h2 class="huge r r-d1">I help practices<br>build their <em>own.</em></h2>
-  <p class="lede r r-d2" style="margin-left:auto;margin-right:auto;text-align:center">Patient-facing AI, EMR and CRM integration, operations automation &mdash; built and owned in-house, not rented from an agency. If you want your practice to run on AI you actually control, let&rsquo;s talk.</p>
-  <a class="cta r r-d3" href="mailto:drleva@drleva.com?subject=AI%20for%20my%20practice">Start a conversation &rarr;</a>
-  <div class="contact r r-d3">Jean-Paul Leva &middot; Leva Medical &middot; Queens &amp; Northport, NY<br>drleva@drleva.com</div>
+  <h2 class="big r">What I can build<br>for <em>your practice.</em></h2>
+  <p class="lede r r-d2">I&rsquo;m a practicing physician who runs my own practice and builds its AI myself &mdash; not an agency, and not rented software. Here&rsquo;s how we could work together.</p>
+  <div class="offer-grid r r-d2">
+    <div class="offer"><div class="offer-n">01</div><h3>AI Roadmap</h3><p>A clear, ranked plan of what AI can actually do for your practice &mdash; and exactly what to build first. A fixed-scope place to start.</p></div>
+    <div class="offer"><div class="offer-n">02</div><h3>Build one system</h3><p>I build one of these into your practice, end to end &mdash; the patient texter, the scribe, call intelligence &mdash; live and working, not a demo.</p></div>
+    <div class="offer"><div class="offer-n">03</div><h3>Your whole Practice OS</h3><p>The full build: the app your office runs on, the automations behind it, and the wiring that ties it together &mdash; owned by you.</p></div>
+    <div class="offer"><div class="offer-n">04</div><h3>Ongoing partner</h3><p>I stay on as your fractional AI lead &mdash; building, watching, and improving the systems as your practice grows.</p></div>
+  </div>
+  <p class="offer-trust r r-d2">Everything is built in-house and <strong>owned by you</strong> &mdash; your data stays yours, every risky feature has an off-switch, and nothing is rented from an agency.</p>
+  <div class="close-cta r r-d3" style="text-align:center">
+    <a class="cta" href="mailto:drleva@drleva.com?subject=AI%20for%20my%20practice">Book a 20-minute call &rarr;</a>
+    <div class="contact" style="margin-top:24px">Jean-Paul Leva &middot; Leva Medical &middot; Queens &amp; Northport, NY<br>drleva@drleva.com</div>
+  </div>
 </section>
 
 <footer class="foot">
