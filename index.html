@@ -9,6 +9,7 @@
 <meta property="og:description" content="I asked the experts to build it. They didn't. So I did — and four months later my practice runs on AI I built myself.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400;1,6..72,500&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -123,7 +124,7 @@ body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;o
 .method p{font-size:15px;color:var(--text-dim);font-weight:300;line-height:1.6}
 
 /* ── System detail drawer (click a system → slide-in panel) ── */
-.work-row{cursor:pointer;transition:color .4s ease,background .3s ease}
+.work-row{cursor:pointer;text-decoration:none;color:inherit;transition:color .4s ease,background .3s ease}
 .work-row:hover{background:rgba(255,255,255,0.022)}
 .work-row:focus-visible{outline:none;background:rgba(255,255,255,0.03);box-shadow:inset 2px 0 0 var(--accent)}
 .dwr-overlay{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.62);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);display:flex;justify-content:flex-end;opacity:0;pointer-events:none;transition:opacity .35s ease}
@@ -259,20 +260,20 @@ body.dwr-locked{overflow:hidden}
 <section class="act">
   <div class="eyebrow r">Act IV &middot; What Followed</div>
   <h2 class="big r">Then I didn&rsquo;t <em>stop.</em></h2>
-  <p class="lede r r-d2">Eleven systems, all live in my practice today &mdash; built between February 16 and June 16, 2026. <span style="color:var(--accent)">Tap any one for the full story.</span></p>
+  <p class="lede r r-d2">Eleven systems, all live in my practice today &mdash; built between February 16 and June 16, 2026. <span style="color:var(--accent)">Open any one for its own page &rarr;</span></p>
 
-  <div class="work" style="margin-top:48px">
-    <div class="work-row r"><div class="work-n">01</div><div class="work-main"><h3>Bilingual AI Patient Agent</h3><p>Texts patients back any time &mdash; day or night, in English or Spanish &mdash; and books their appointments for them.</p></div><div class="work-tag">live since Feb 14</div></div>
-    <div class="work-row r"><div class="work-n">02</div><div class="work-main"><h3>The Practice OS</h3><p>The one app my whole office runs on &mdash; scheduling, patient records, billing, and the front desk, all in one place.</p></div><div class="work-tag">in daily use</div></div>
-    <div class="work-row r"><div class="work-n">03</div><div class="work-main"><h3>The Automation Fleet</h3><p>Around a hundred behind-the-scenes helpers that quietly handle the repetitive office work, around the clock.</p></div><div class="work-tag">always on</div></div>
-    <div class="work-row r"><div class="work-n">04</div><div class="work-main"><h3>Google Ads Recovery</h3><p>Our online ads had quietly stopped working. I found out why and rebuilt them so they bring patients in again.</p></div><div class="work-tag">recovered</div></div>
-    <div class="work-row r"><div class="work-n">05</div><div class="work-main"><h3>Call Intelligence</h3><p>Listens to every phone call and writes a clear summary into the patient&rsquo;s file within minutes.</p></div><div class="work-tag">every call</div></div>
-    <div class="work-row r"><div class="work-n">06</div><div class="work-main"><h3>The Connector</h3><p>The wiring that links the AI to our medical-records system, so it can book real appointments &mdash; not just pretend to.</p></div><div class="work-tag">the plumbing</div></div>
-    <div class="work-row r"><div class="work-n">07</div><div class="work-main"><h3>Clinical Scribe</h3><p>Records a visit on an iPad and writes up the doctor&rsquo;s note automatically, in English or Spanish.</p></div><div class="work-tag">on iPad</div></div>
-    <div class="work-row r"><div class="work-n">08</div><div class="work-main"><h3>My Quality-Control Tools</h3><p>The tools I built to double-check my own work, so the AI can move fast without making mistakes.</p></div><div class="work-tag">my edge</div></div>
-    <div class="work-row r"><div class="work-n">09</div><div class="work-main"><h3>DealSnap</h3><p>Snap a photo of a paper patient form and the right record is created for you in about thirty seconds.</p></div><div class="work-tag">from a photo</div></div>
-    <div class="work-row r"><div class="work-n">10</div><div class="work-main"><h3>Lead Integrity</h3><p>Makes sure &ldquo;I reached the patient&rdquo; really happened &mdash; it checks the phone and the calendar instead of taking someone&rsquo;s word.</p></div><div class="work-tag">proof, not claims</div></div>
-    <div class="work-row r"><div class="work-n">11</div><div class="work-main"><h3>ScribeSnap</h3><p>A Mac app for the doctor: hold a key, talk, and your words turn into clean text anywhere on screen.</p></div><div class="work-tag">dictation</div></div>
+  <div class="work" id="systems" style="margin-top:48px">
+    <a class="work-row r" href="/sms-agent/"><div class="work-n">01</div><div class="work-main"><h3>Bilingual AI Patient Agent</h3><p>Texts patients back any time &mdash; day or night, in English or Spanish &mdash; and books their appointments for them.</p></div><div class="work-tag">live since Feb 14</div></a>
+    <a class="work-row r" href="/practice-os/"><div class="work-n">02</div><div class="work-main"><h3>The Practice OS</h3><p>The one app my whole office runs on &mdash; scheduling, patient records, billing, and the front desk, all in one place.</p></div><div class="work-tag">in daily use</div></a>
+    <a class="work-row r" href="/automation-fleet/"><div class="work-n">03</div><div class="work-main"><h3>The Automation Fleet</h3><p>Around a hundred behind-the-scenes helpers that quietly handle the repetitive office work, around the clock.</p></div><div class="work-tag">always on</div></a>
+    <a class="work-row r" href="/ads-recovery/"><div class="work-n">04</div><div class="work-main"><h3>Google Ads Recovery</h3><p>Our online ads had quietly stopped working. I found out why and rebuilt them so they bring patients in again.</p></div><div class="work-tag">recovered</div></a>
+    <a class="work-row r" href="/call-intelligence/"><div class="work-n">05</div><div class="work-main"><h3>Call Intelligence</h3><p>Listens to every phone call and writes a clear summary into the patient&rsquo;s file within minutes.</p></div><div class="work-tag">every call</div></a>
+    <a class="work-row r" href="/integration-spine/"><div class="work-n">06</div><div class="work-main"><h3>The Connector</h3><p>The wiring that links the AI to our medical-records system, so it can book real appointments &mdash; not just pretend to.</p></div><div class="work-tag">the plumbing</div></a>
+    <a class="work-row r" href="/clinical-scribe/"><div class="work-n">07</div><div class="work-main"><h3>Clinical Scribe</h3><p>Records a visit on an iPad and writes up the doctor&rsquo;s note automatically, in English or Spanish.</p></div><div class="work-tag">on iPad</div></a>
+    <a class="work-row r" href="/ai-tooling/"><div class="work-n">08</div><div class="work-main"><h3>My Quality-Control Tools</h3><p>The tools I built to double-check my own work, so the AI can move fast without making mistakes.</p></div><div class="work-tag">my edge</div></a>
+    <a class="work-row r" href="/dealsnap/"><div class="work-n">09</div><div class="work-main"><h3>DealSnap</h3><p>Snap a photo of a paper patient form and the right record is created for you in about thirty seconds.</p></div><div class="work-tag">from a photo</div></a>
+    <a class="work-row r" href="/lead-integrity/"><div class="work-n">10</div><div class="work-main"><h3>Lead Integrity</h3><p>Makes sure &ldquo;I reached the patient&rdquo; really happened &mdash; it checks the phone and the calendar instead of taking someone&rsquo;s word.</p></div><div class="work-tag">proof, not claims</div></a>
+    <a class="work-row r" href="/scribesnap/"><div class="work-n">11</div><div class="work-main"><h3>ScribeSnap</h3><p>A Mac app for the doctor: hold a key, talk, and your words turn into clean text anywhere on screen.</p></div><div class="work-tag">dictation</div></a>
   </div>
 </section>
 
@@ -315,20 +316,6 @@ body.dwr-locked{overflow:hidden}
   <div class="foot-mono r r-d1">One person &middot; one frontier model &middot; built at the scale of a team</div>
   <p class="foot-note r r-d2">&copy; 2026 Jean-Paul Leva / Leva Medical PC. A living portfolio &mdash; updated as I ship. Story and figures verified against primary sources; identities blurred; PHI-safe.</p>
 </footer>
-
-<!-- ════════ SYSTEM DETAIL DRAWER ════════ -->
-<div class="dwr-overlay" id="sysDrawer" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="dwrTitle">
-  <div class="dwr-panel" role="document">
-    <div class="dwr-head">
-      <div style="min-width:0">
-        <div class="dwr-eyebrow"><span id="dwrNum"></span> &middot; <span id="dwrTag"></span></div>
-        <div class="dwr-title" id="dwrTitle"></div>
-      </div>
-      <button class="dwr-close" id="dwrClose" aria-label="Close detail">&times;</button>
-    </div>
-    <div class="dwr-body" id="dwrBody"></div>
-  </div>
-</div>
 
 <!-- ── Lenis + GSAP ── -->
 <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>

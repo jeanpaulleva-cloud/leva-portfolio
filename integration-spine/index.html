@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Connector — Jean-Paul Leva</title>
+<meta name="description" content="The wiring that lets our AI book a real appointment in a records system that was never built to let it.">
+<meta property="og:title" content="The Connector — Jean-Paul Leva">
+<meta property="og:description" content="The wiring that lets our AI book a real appointment in a records system that was never built to let it.">
+<meta property="og:type" content="article">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/systems.css">
+</head>
+<body>
+<header class="sysnav">
+  <a class="sysnav-back" href="/">&larr; Jean-Paul Leva</a>
+  <a class="sysnav-cta" href="mailto:drleva@drleva.com?subject=AI%20for%20my%20practice">Work with me &rarr;</a>
+</header>
+<main>
+  <section class="sys-hero">
+    <div class="sys-num">06 / 11</div>
+    <div class="sys-tag">the plumbing</div>
+    <h1>The Connector</h1>
+    <p class="sys-tagline">The wiring that lets our AI book a real appointment in a records system that was never built to let it.</p>
+    <div class="chips"><span class="chip">The records system has no reliable built-in way for outside software to book into it</span><span class="chip">The previous outside connector had 13 documented problems and ran on a server we didn't control</span><span class="chip">That connector cost ~$3,500/month on top of the records-system license</span><span class="chip">Bookings are created directly in the records system, not via a scheduling link</span><span class="chip">Checks the live schedule first, so closed days and taken slots are blocked</span></div>
+  </section>
+  <section class="sys-body">
+    <div class="sys-sec"><div class="sys-l">The problem</div><p>Our medical-records system is a closed box — it has no easy, reliable way for our own software to read the schedule or book an appointment. So when our AI texts a patient "Thursday at 2 works — booked," that only means something if it can actually reach into the records system and put it on the calendar.</p></div>
+    <div class="sys-sec"><div class="sys-l">What I built</div><p>I built the connector that lets every other system we run talk to the medical-records system in plain, dependable terms: check who's free, find an open slot, create a real appointment, pull a patient's history. It's the quiet layer underneath the texting AI, the staff dashboard, and the booking tools — the thing that turns "the AI said it booked you" into an appointment that's actually on the schedule.</p></div>
+    <div class="sys-sec"><div class="sys-l">How it works</div><ol class="how"><li>When the AI agrees on a time with a patient, the connector creates the appointment directly in the records system — no clunky scheduling link, no front-desk re-typing.</li><li>It reads the live schedule so the AI never offers a time that's already taken or a day we're closed.</li><li>It carries patient details both ways, so a text conversation, the records system, and the patient database all stay in sync.</li><li>We run our own copy of this wiring on hardware we control, instead of depending on an outside vendor's server we couldn't see or fix.</li><li>It's built to fail safely: if the connection ever hiccups, the patient still gets a clean fallback instead of a broken or duplicate booking.</li></ol></div>
+    <div class="sys-sec"><div class="sys-l">The result</div><p>Patients can now book and reschedule by text and have it land as a real appointment in seconds, with no staff member in the middle. The practice owns the wiring instead of renting a fragile one — which also clears the path to drop a costly outside connector.</p></div>
+    <div class="sys-foryou"><div class="sys-l sys-l--accent">For your practice</div><p>If your records system won't talk to anything, the highest-leverage thing you can build isn't another app — it's the connector that makes everything you already own finally work together.</p></div>
+  </section>
+  <nav class="sys-nav2">
+    <a href="/call-intelligence/">&larr; Call Intelligence</a>
+    <a class="sys-nav2-all" href="/#systems">All systems</a>
+    <a href="/clinical-scribe/">Clinical Scribe &rarr;</a>
+  </nav>
+  <section class="sys-cta">
+    <h2>Want something like this in your practice?</h2>
+    <p>I help practices build their own AI — owned in-house, not rented from an agency.</p>
+    <a class="cta-btn" href="mailto:drleva@drleva.com?subject=AI%20for%20my%20practice">Start a conversation &rarr;</a>
+  </section>
+</main>
+<footer class="sys-foot">&copy; 2026 Jean-Paul Leva &middot; Leva Medical</footer>
+</body>
+</html>
