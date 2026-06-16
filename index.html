@@ -122,6 +122,27 @@ body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;o
 .method h4{font-family:var(--font-serif);font-weight:400;font-size:23px;letter-spacing:-0.01em;margin-bottom:12px;color:var(--text)}
 .method p{font-size:15px;color:var(--text-dim);font-weight:300;line-height:1.6}
 
+/* ── System detail drawer (click a system → slide-in panel) ── */
+.work-row{cursor:pointer;transition:color .4s ease,background .3s ease}
+.work-row:hover{background:rgba(255,255,255,0.022)}
+.work-row:focus-visible{outline:none;background:rgba(255,255,255,0.03);box-shadow:inset 2px 0 0 var(--accent)}
+.dwr-overlay{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.62);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);display:flex;justify-content:flex-end;opacity:0;pointer-events:none;transition:opacity .35s ease}
+.dwr-overlay.open{opacity:1;pointer-events:auto}
+.dwr-panel{width:min(560px,94vw);height:100%;background:linear-gradient(180deg,#101015,#0a0a0c);border-left:1px solid var(--line);box-shadow:-40px 0 90px rgba(0,0,0,0.65);display:flex;flex-direction:column;overflow:hidden;transform:translateX(48px);opacity:0;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .4s ease}
+.dwr-overlay.open .dwr-panel{transform:none;opacity:1}
+.dwr-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:34px 34px 24px;border-bottom:1px solid var(--line-soft)}
+.dwr-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.dwr-title{font-family:var(--font-serif);font-weight:400;font-size:clamp(26px,4.4vw,36px);letter-spacing:-0.02em;line-height:1.08;color:var(--text)}
+.dwr-close{flex:0 0 auto;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,0.04);color:var(--text-dim);font-size:18px;line-height:1;cursor:pointer;transition:all .25s ease}
+.dwr-close:hover{border-color:var(--accent);color:var(--accent);background:rgba(54,227,176,0.08)}
+.dwr-body{flex:1;overflow-y:auto;padding:30px 34px 52px;-webkit-overflow-scrolling:touch}
+.dwr-lead{font-family:var(--font-serif);font-style:italic;font-weight:300;font-size:clamp(19px,2.4vw,23px);line-height:1.5;color:var(--text);margin-bottom:34px}
+.dwr-sec{margin-bottom:28px}
+.dwr-sec-l{font-family:var(--font-mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent-muted);margin-bottom:9px}
+.dwr-sec p{font-size:15.5px;line-height:1.72;color:var(--text-dim);font-weight:300}
+body.dwr-locked{overflow:hidden}
+@media(max-width:560px){.dwr-panel{width:100vw}.dwr-head{padding:26px 22px 20px}.dwr-body{padding:24px 22px 44px}}
+
 /* ── Close / CTA ── */
 .close{text-align:center;align-items:center}
 .cta{margin-top:48px;display:inline-flex;align-items:center;gap:12px;padding:16px 30px;border-radius:100px;
@@ -238,7 +259,7 @@ body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;o
 <section class="act">
   <div class="eyebrow r">Act IV &middot; What Followed</div>
   <h2 class="big r">Then I didn&rsquo;t <em>stop.</em></h2>
-  <p class="lede r r-d2">Eleven systems, all live in my practice today &mdash; built between February 16 and June 16, 2026.</p>
+  <p class="lede r r-d2">Eleven systems, all live in my practice today &mdash; built between February 16 and June 16, 2026. <span style="color:var(--accent)">Tap any one for the full story.</span></p>
 
   <div class="work" style="margin-top:48px">
     <div class="work-row r"><div class="work-n">01</div><div class="work-main"><h3>Bilingual AI Patient Agent</h3><p>Texts patients back any time &mdash; day or night, in English or Spanish &mdash; and books their appointments for them.</p></div><div class="work-tag">live since Feb 14</div></div>
@@ -295,6 +316,20 @@ body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;o
   <p class="foot-note r r-d2">&copy; 2026 Jean-Paul Leva / Leva Medical PC. A living portfolio &mdash; updated as I ship. Story and figures verified against primary sources; identities blurred; PHI-safe.</p>
 </footer>
 
+<!-- ════════ SYSTEM DETAIL DRAWER ════════ -->
+<div class="dwr-overlay" id="sysDrawer" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="dwrTitle">
+  <div class="dwr-panel" role="document">
+    <div class="dwr-head">
+      <div style="min-width:0">
+        <div class="dwr-eyebrow"><span id="dwrNum"></span> &middot; <span id="dwrTag"></span></div>
+        <div class="dwr-title" id="dwrTitle"></div>
+      </div>
+      <button class="dwr-close" id="dwrClose" aria-label="Close detail">&times;</button>
+    </div>
+    <div class="dwr-body" id="dwrBody"></div>
+  </div>
+</div>
+
 <!-- ── Lenis + GSAP ── -->
 <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
@@ -342,9 +377,65 @@ body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;o
   // Lenis smooth scroll (graceful if CDN fails).
   if(!reduce && window.Lenis){
     var lenis = new Lenis({ duration:1.15, easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t));}, smoothWheel:true });
+    window.__lenis = lenis;
     function raf(t){ lenis.raf(t); requestAnimationFrame(raf); } requestAnimationFrame(raf);
     lenis.on('scroll', onScroll);
   }
+})();
+</script>
+
+<!-- ── System detail drawer behavior ── -->
+<script>
+(function(){
+  var SYS = {
+    "01":{lead:"Your front desk can't be awake at 2 a.m. This can.",problem:"Patients text at all hours, and a slow or missed reply is a missed appointment — often a missed surgery.",does:"An AI texts patients back within seconds, day or night, in English or Spanish — answering questions and booking or rescheduling for them. A safety check reviews every message before it sends, so it never says the wrong thing.",result:"Patients get answered instantly, the front desk stops racing the phone after hours, and more people actually book."},
+    "02":{lead:"The whole office, in one screen instead of ten.",problem:"The practice ran on a patchwork of disconnected tools and a clunky records system.",does:"One app the team lives in: find a patient, see their history, schedule, chase down bills, write clinical notes, sign consents, and handle the phones.",result:"Built from nothing to the office's everyday workhorse in days — now in constant use."},
+    "03":{lead:"A back office that never sleeps.",problem:"The busywork that keeps a practice running doesn't scale when there's one of you.",does:"Around a hundred small automations quietly do the repetitive jobs 24/7 — routing messages, updating records, flagging what needs attention — each one safe to switch off instantly.",result:"The output of a back-office team, run by one person."},
+    "04":{lead:"The ads quietly broke. I found out why.",problem:"Our online ads stopped bringing patients in, and the outside agency couldn't explain it.",does:"I traced the collapse to its real cause, fixed it, and built a loop that feeds real booked revenue back to Google — so the ads learn what an actual patient is worth, not just a click.",result:"The ads recovered and now spend smarter — chasing patients, not clicks."},
+    "05":{lead:"Nothing said on a call walks out the door anymore.",problem:"Phone calls left no record — whatever was discussed was simply lost.",does:"Every call is turned into a clear written summary in the patient's file within minutes: what they wanted, what was promised, what happens next.",result:"Nothing falls through the cracks, and anyone can pick up exactly where the last call left off."},
+    "06":{lead:"The reason the AI can do real work, not just talk.",problem:"Our medical-records system has no easy way for outside software to book appointments. Vendors said it couldn't be done.",does:"I built the wiring that lets the AI talk directly to the records system — so when it books, a real appointment actually appears, in the right place, at the right time.",result:"This is the foundation everything else stands on."},
+    "07":{lead:"The note is done by the time the visit ends.",problem:"Writing up every visit eats into time with patients — and a phone stops recording the moment its screen locks.",does:"An iPad records the visit (I solved the screen-lock problem), then writes a clean, organized note automatically — in English or Spanish — and files it.",result:"More eye contact, less paperwork."},
+    "08":{lead:"How I move fast without breaking things.",problem:"Building quickly with AI risks shipping work that looks right but isn't.",does:"I built my own tools to check my work: small teams of AI reviewers that hunt for mistakes, a panel that stress-tests a plan before I build it, and a grader that scores quality every night.",result:"I ship fast and catch my own errors before a patient ever sees them — the discipline I'd bring to any practice."},
+    "09":{lead:"A two-minute chore becomes a photo.",problem:"Turning a paper patient form into a proper record was slow, manual, and easy to get wrong.",does:"Snap a photo of the form. The AI reads it, files it in the right place, and creates the record — in about thirty seconds, with no typing.",result:"Faster intake, fewer errors."},
+    "10":{lead:"“Done” finally means done.",problem:"When the board is full, staff clear it however's fastest — “I called them” can mean nobody actually called.",does:"The system treats “done” as a claim and checks it against things no one can fake — was there a real phone call, a real booking? — then quietly reopens the ones that weren't truly handled.",result:"Patients stop slipping through, even as staff come and go."},
+    "11":{lead:"Fast, private dictation, on my terms.",problem:"Off-the-shelf dictation tools are clunky and locked to someone else's cloud.",does:"A small Mac app I built — hold a key, talk, and your words become clean text anywhere on the screen.",result:"Dictation I control, instantly, anywhere."}
+  };
+  var dr=document.getElementById('sysDrawer'); if(!dr) return;
+  var body=document.getElementById('dwrBody'),titleEl=document.getElementById('dwrTitle'),
+      numEl=document.getElementById('dwrNum'),tagEl=document.getElementById('dwrTag'),
+      closeBtn=document.getElementById('dwrClose'),lastFocus=null;
+  function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+  function open(row){
+    var num=(row.querySelector('.work-n').textContent||'').trim();
+    var d=SYS[num]; if(!d) return;
+    lastFocus=row;
+    numEl.textContent=num;
+    tagEl.textContent=(row.querySelector('.work-tag').textContent||'').trim();
+    titleEl.textContent=(row.querySelector('h3').textContent||'').trim();
+    body.innerHTML='<p class="dwr-lead">'+esc(d.lead)+'</p>'+
+      '<div class="dwr-sec"><div class="dwr-sec-l">The problem</div><p>'+esc(d.problem)+'</p></div>'+
+      '<div class="dwr-sec"><div class="dwr-sec-l">What it does</div><p>'+esc(d.does)+'</p></div>'+
+      '<div class="dwr-sec"><div class="dwr-sec-l">The result</div><p>'+esc(d.result)+'</p></div>';
+    body.scrollTop=0;
+    dr.classList.add('open'); dr.setAttribute('aria-hidden','false');
+    document.body.classList.add('dwr-locked');
+    if(window.__lenis&&window.__lenis.stop) window.__lenis.stop();
+    closeBtn.focus();
+  }
+  function close(){
+    dr.classList.remove('open'); dr.setAttribute('aria-hidden','true');
+    document.body.classList.remove('dwr-locked');
+    if(window.__lenis&&window.__lenis.start) window.__lenis.start();
+    if(lastFocus&&lastFocus.focus) lastFocus.focus();
+  }
+  document.querySelectorAll('.work-row').forEach(function(row){
+    row.setAttribute('role','button'); row.tabIndex=0;
+    row.addEventListener('click',function(){ open(row); });
+    row.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(row); } });
+  });
+  closeBtn.addEventListener('click',close);
+  dr.addEventListener('mousedown',function(e){ if(e.target===dr) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&dr.classList.contains('open')) close(); });
 })();
 </script>
 </body>
